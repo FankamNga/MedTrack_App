@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="MedTrack.ServiceDefaults/MedTrack.ServiceDefaults.csproj" />
+  <Project Path="MedTrack/MedTrack.csproj">
+    <Deploy />
+  </Project>
+</Solution>
