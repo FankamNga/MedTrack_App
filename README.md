@@ -45,7 +45,7 @@ Workloads MAUI installés : dotnet workload install maui
 Node.js / backend accessible (ou exécuter localement le backend fourni séparément).
 
 Cloner le dépôt
-git clone https://votre-repo/medtrack-frontend-maui.git
+git clone https://github.com/FankamNga/MedTrack_App
 cd medtrack-frontend-maui
 
 Configuration (locale)
