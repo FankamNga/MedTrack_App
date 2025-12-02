@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MedTrack.Views.AccueilPage"
+             Title="AccueilPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="White">
+
+    <Grid RowDefinitions="Auto,*">
+        
+        <!-- Header bleu arrondi -->
+        <Border Grid.Row="0"
+                BackgroundColor="#0066FF"
+                Padding="20,40,20,20">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="0,0,30,30"/>
+            </Border.StrokeShape>
+
+            <VerticalStackLayout Spacing="15">
+                
+                <!-- Header avec nom et icône -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout>
+                        <Label Text="Bienvenue,"
+                               FontSize="14"
+                               TextColor="White"
+                               Opacity="0.9"/>
+                        <Label x:Name="UserNameLabel"
+                               Text="Franck"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="White"/>
+                    </VerticalStackLayout>
+
+                    <Border Grid.Column="1"
+                            BackgroundColor="White"
+                            StrokeThickness="0"
+                            Padding="8"
+                            WidthRequest="40"
+                            HeightRequest="40"
+                            VerticalOptions="Center">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <Label Text="📋"
+                               FontSize="20"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </Border>
+                </Grid>
+
+                <!-- Barre de recherche -->
+                <Border BackgroundColor="White"
+                        StrokeThickness="0"
+                        Padding="15,0"
+                        HeightRequest="50">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="25"/>
+                    </Border.StrokeShape>
+                    
+                    <Grid ColumnDefinitions="40,*">
+                        <Label Text="🔍"
+                               FontSize="20"
+                               TextColor="#999"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Placeholder="entrer votre recherche ici ..."
+                               PlaceholderColor="#CCCCCC"
+                               BackgroundColor="Transparent"
+                               TextColor="#333333"/>
+                    </Grid>
+                </Border>
+
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- Contenu scrollable -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="20" Padding="20">
+
+                <!-- Section Actualités -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Actualités"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="#000000"/>
+                    <Label Grid.Column="1"
+                           Text="voir tout ›"
+                           FontSize="14"
+                           TextColor="#0066FF"
+                           VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnVoirToutActualitesClicked"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+
+                <!-- Card Actualité -->
+                <Border BackgroundColor="#F5F5F5"
+                        StrokeThickness="0"
+                        HeightRequest="200">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15"/>
+                    </Border.StrokeShape>
+                    
+                    <Grid>
+                        <!-- Image de fond -->
+                        <Image Source="actuality_bg.jpg"
+                               Aspect="AspectFill"/>
+                        
+                        <!-- Overlay sombre -->
+                        <BoxView Color="Black"
+                                 Opacity="0.3"/>
+
+                        <!-- Contenu -->
+                        <VerticalStackLayout Padding="20"
+                                           VerticalOptions="End"
+                                           Spacing="10">
+                            <Label Text="Zoom sur les médicaments importants"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="White"/>
+                            
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label Text="Hervé M. Dupont"
+                                       FontSize="12"
+                                       TextColor="White"
+                                       VerticalOptions="Center"/>
+                                <Button Grid.Column="1"
+                                        Text="Voir"
+                                        BackgroundColor="White"
+                                        TextColor="#0066FF"
+                                        FontSize="14"
+                                        FontAttributes="Bold"
+                                        CornerRadius="15"
+                                        Padding="20,8"
+                                        Clicked="OnVoirActualiteClicked"/>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Section Sections -->
+                <Label Text="Sections"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       TextColor="#000000"
+                       Margin="0,10,0,0"/>
+
+                <!-- Grid des sections -->
+                <Grid RowDefinitions="150,150"
+                      ColumnDefinitions="*,*"
+                      RowSpacing="15"
+                      ColumnSpacing="15">
+
+                    <!-- Médicaments -->
+                    <Border Grid.Row="0" Grid.Column="0"
+                            BackgroundColor="#FF9966"
+                            StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnMedicamentsClicked"/>
+                        </Border.GestureRecognizers>
+
+                        <Grid>
+                            <Image Source="medicaments_bg.png"
+                                   Aspect="AspectFill"
+                                   Opacity="0.3"/>
+                            <VerticalStackLayout Padding="15"
+                                               VerticalOptions="End">
+                                <Label Text="Médicaments"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="White"/>
+                                <Border BackgroundColor="White"
+                                        StrokeThickness="0"
+                                        WidthRequest="35"
+                                        HeightRequest="35"
+                                        Margin="0,10,0,0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="17.5"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="›"
+                                           FontSize="20"
+                                           TextColor="#FF9966"
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+
+                    <!-- Rendez-vous -->
+                    <Border Grid.Row="0" Grid.Column="1"
+                            BackgroundColor="#00FF88"
+                            StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnRendezVousClicked"/>
+                        </Border.GestureRecognizers>
+
+                        <Grid>
+                            <Image Source="rdv_bg.png"
+                                   Aspect="AspectFill"
+                                   Opacity="0.3"/>
+                            <VerticalStackLayout Padding="15"
+                                               VerticalOptions="End">
+                                <Label Text="Rendez-vous"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="White"/>
+                                <Border BackgroundColor="White"
+                                        StrokeThickness="0"
+                                        WidthRequest="35"
+                                        HeightRequest="35"
+                                        Margin="0,10,0,0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="17.5"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="›"
+                                           FontSize="20"
+                                           TextColor="#00FF88"
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+
+                    <!-- Documents -->
+                    <Border Grid.Row="1" Grid.Column="0"
+                            BackgroundColor="#CCFF66"
+                            StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnDocumentsClicked"/>
+                        </Border.GestureRecognizers>
+
+                        <Grid>
+                            <Image Source="documents_bg.png"
+                                   Aspect="AspectFill"
+                                   Opacity="0.3"/>
+                            <VerticalStackLayout Padding="15"
+                                               VerticalOptions="End">
+                                <Label Text="Documents"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="White"/>
+                                <Border BackgroundColor="White"
+                                        StrokeThickness="0"
+                                        WidthRequest="35"
+                                        HeightRequest="35"
+                                        Margin="0,10,0,0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="17.5"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="›"
+                                           FontSize="20"
+                                           TextColor="#CCFF66"
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+
+                    <!-- Profil -->
+                    <Border Grid.Row="1" Grid.Column="1"
+                            BackgroundColor="#0099FF"
+                            StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnProfilClicked"/>
+                        </Border.GestureRecognizers>
+
+                        <Grid>
+                            <Image Source="profil_bg.png"
+                                   Aspect="AspectFill"
+                                   Opacity="0.3"/>
+                            <VerticalStackLayout Padding="15"
+                                               VerticalOptions="End">
+                                <Label Text="Profil"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="White"/>
+                                <Border BackgroundColor="White"
+                                        StrokeThickness="0"
+                                        WidthRequest="35"
+                                        HeightRequest="35"
+                                        Margin="0,10,0,0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="17.5"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="›"
+                                           FontSize="20"
+                                           TextColor="#0099FF"
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

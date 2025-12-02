@@ -4,11 +4,49 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MedTrack"
-    Title="MedTrack">
+    Title="MedTrack"
+    xmlns:views="clr-namespace:MedTrack.Views"
+    Shell.FlyoutBehavior="Disabled">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="MEDTRACK"
+        ContentTemplate="{DataTemplate views:SplashPage}"
+        Route="SplashPage" />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:ConnexionPage}"
+        Route="ConnexionPage" />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:InscriptionPage}"
+        Route="InscriptionPage" />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:AccueilPage}"
+        Route="AccueilPage" />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:MedicamentsPage}"
+        Route="MedicamentsPage" />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:DetailMedicamentPage}"
+        Route="DetailMedicamentPage" />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:RendezVousPage}"
+        Route="RendezVousPage" />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:DetailRendezVousPage}"
+        Route="DetailRendezVousPage" />
+    
+    <ShellContent
+    ContentTemplate="{DataTemplate views:DocumentsPage}"
+    Route="DocumentsPage" />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:ProfilPage}"
+        Route="ProfilPage" />
 
 </Shell>

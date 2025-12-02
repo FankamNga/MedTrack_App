@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MedTrack.Views.ProfilPage"
+             Title="ProfilPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#0066FF">
+
+    <Grid>
+        <!-- Page principale -->
+        <Grid RowDefinitions="Auto,*">
+
+            <!-- Header bleu -->
+            <Grid Grid.Row="0" 
+                  Padding="20,40,20,20">
+
+                <!-- Titre avec bouton retour -->
+                <Grid ColumnDefinitions="Auto,*">
+                    <Border BackgroundColor="Transparent"
+                            StrokeThickness="0"
+                            Padding="5">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBackClicked"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="←"
+                               FontSize="28"
+                               TextColor="White"
+                               FontAttributes="Bold"/>
+                    </Border>
+
+                    <Label Grid.Column="1"
+                           Text="Profil"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Grid>
+            </Grid>
+
+            <!-- Contenu blanc -->
+            <Border Grid.Row="1"
+                    BackgroundColor="White"
+                    Padding="25,30">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="30,30,0,0"/>
+                </Border.StrokeShape>
+
+                <ScrollView>
+                    <VerticalStackLayout Spacing="20">
+
+                        <!-- Photo de profil et infos -->
+                        <Grid ColumnDefinitions="80,*" ColumnSpacing="15">
+
+                            <!-- Photo de profil -->
+                            <Border BackgroundColor="#FF3366"
+                                    StrokeThickness="0"
+                                    WidthRequest="70"
+                                    HeightRequest="70">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="35"/>
+                                </Border.StrokeShape>
+                                <Image x:Name="ProfileImage"
+                                       Source="default_avatar.png"
+                                       Aspect="AspectFill"/>
+                            </Border>
+
+                            <!-- Nom et email -->
+                            <VerticalStackLayout Grid.Column="1" 
+                                               VerticalOptions="Center"
+                                               Spacing="5">
+                                <Label x:Name="NomLabel"
+                                       Text="John Doe"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="#000000"/>
+                                <Label x:Name="EmailLabel"
+                                       Text="johndoe17@gmail.com"
+                                       FontSize="14"
+                                       TextColor="#666666"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <!-- Badges (Age, Groupe sanguin, Sexe) -->
+                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+
+                            <!-- Age -->
+                            <Border Grid.Column="0"
+                                    BackgroundColor="#E8F4FF"
+                                    StrokeThickness="0"
+                                    Padding="15,10">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="15"/>
+                                </Border.StrokeShape>
+                                <Label x:Name="AgeLabel"
+                                       Text="23 ans"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="#0066FF"
+                                       HorizontalOptions="Center"/>
+                            </Border>
+
+                            <!-- Groupe sanguin -->
+                            <Border Grid.Column="1"
+                                    BackgroundColor="#E8F4FF"
+                                    StrokeThickness="0"
+                                    Padding="15,10">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="15"/>
+                                </Border.StrokeShape>
+                                <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                                    <Label Text="💧"
+                                           FontSize="16"/>
+                                    <Label x:Name="GroupeSanguinLabel"
+                                           Text="O+"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           TextColor="#0066FF"/>
+                                </HorizontalStackLayout>
+                            </Border>
+
+                            <!-- Sexe -->
+                            <Border Grid.Column="2"
+                                    BackgroundColor="#E8F4FF"
+                                    StrokeThickness="0"
+                                    Padding="15,10">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="15"/>
+                                </Border.StrokeShape>
+                                <Label x:Name="SexeLabel"
+                                       Text="♂"
+                                       FontSize="16"
+                                       TextColor="#0066FF"
+                                       HorizontalOptions="Center"/>
+                            </Border>
+                        </Grid>
+
+                        <!-- Types d'allergies -->
+                        <Border BackgroundColor="#E8F4FF"
+                                StrokeThickness="0"
+                                Padding="20">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="15"/>
+                            </Border.StrokeShape>
+
+                            <VerticalStackLayout Spacing="10">
+                                <Label Text="Types d'allergies"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="#000000"
+                                       TextDecorations="Underline"/>
+
+                                <VerticalStackLayout x:Name="AllergiesLayout" Spacing="5">
+                                    <!-- Allergies ajoutées dynamiquement -->
+                                </VerticalStackLayout>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- Maladies connues -->
+                        <Border BackgroundColor="#E8F4FF"
+                                StrokeThickness="0"
+                                Padding="20">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="15"/>
+                            </Border.StrokeShape>
+
+                            <VerticalStackLayout Spacing="10">
+                                <Label Text="Maladies connues"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="#000000"
+                                       TextDecorations="Underline"/>
+
+                                <VerticalStackLayout x:Name="MaladiesLayout" Spacing="5">
+                                    <!-- Maladies ajoutées dynamiquement -->
+                                </VerticalStackLayout>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- Indicateur de chargement -->
+                        <ActivityIndicator x:Name="LoadingIndicator"
+                                         IsRunning="False"
+                                         Color="#0066FF"
+                                         Margin="0,20"/>
+
+                        <!-- Boutons d'action -->
+                        <VerticalStackLayout Spacing="15" Margin="0,10,0,20">
+
+                            <!-- Bouton Modifier -->
+                            <Button Text="Modifier"
+                                    BackgroundColor="#0066FF"
+                                    TextColor="White"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    CornerRadius="25"
+                                    HeightRequest="50"
+                                    Clicked="OnModifierClicked"/>
+
+                            <!-- Bouton Déconnexion -->
+                            <Button Text="Deconnexion"
+                                    BackgroundColor="#FF3333"
+                                    TextColor="White"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    CornerRadius="25"
+                                    HeightRequest="50"
+                                    Clicked="OnDeconnexionClicked"/>
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+                </ScrollView>
+            </Border>
+
+        </Grid>
+
+        <!-- MODAL DE MODIFICATION (overlay) -->
+        <Grid x:Name="ModifyModal"
+              IsVisible="False"
+              BackgroundColor="#80000000">
+
+            <!-- Overlay cliquable -->
+            <BoxView Color="Transparent">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnModalBackgroundClicked"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+
+            <!-- Card du modal -->
+            <Border BackgroundColor="White"
+                    StrokeThickness="0"
+                    VerticalOptions="Center"
+                    Margin="20,0"
+                    Padding="25,30"
+                    InputTransparent="False">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20"/>
+                </Border.StrokeShape>
+
+                <ScrollView>
+                    <VerticalStackLayout Spacing="20">
+
+                        <!-- En-tête -->
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Modification Utilisateur"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="#000000"
+                                   VerticalOptions="Center"/>
+
+                            <Label Grid.Column="1"
+                                   Text="✕"
+                                   FontSize="24"
+                                   TextColor="#FF0000"
+                                   VerticalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnCloseModalClicked"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+
+                        <Label Text="Veuillez valider les informations&#x0a;suivantes:"
+                               FontSize="14"
+                               TextColor="#666666"
+                               Margin="0,0,0,10"/>
+
+                        <!-- Photo de profil avec bouton édition -->
+                        <Grid HorizontalOptions="Center">
+                            <Border BackgroundColor="#FF3366"
+                                    StrokeThickness="0"
+                                    WidthRequest="100"
+                                    HeightRequest="100">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="50"/>
+                                </Border.StrokeShape>
+                                <Image Source="default_avatar.png"
+                                       Aspect="AspectFill"/>
+                            </Border>
+
+                            <!-- Bouton édition photo -->
+                            <Border BackgroundColor="#0066FF"
+                                    StrokeThickness="2"
+                                    Stroke="White"
+                                    WidthRequest="35"
+                                    HeightRequest="35"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="End"
+                                    Margin="0,0,5,5">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="17.5"/>
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnEditPhotoClicked"/>
+                                </Border.GestureRecognizers>
+                                <Label Text="✏️"
+                                       FontSize="16"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                            </Border>
+                        </Grid>
+
+                        <!-- Sexe -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Sexe"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#000000"/>
+
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                                <Border Grid.Column="0"
+                                        x:Name="FemininBorder"
+                                        BackgroundColor="White"
+                                        Stroke="#DDDDDD"
+                                        StrokeThickness="1"
+                                        Padding="15"
+                                        HeightRequest="45">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="22.5"/>
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnFemininClicked"/>
+                                    </Border.GestureRecognizers>
+                                    <Label x:Name="FemininLabel"
+                                           Text="Feminin"
+                                           FontSize="14"
+                                           TextColor="#666666"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+
+                                <Border Grid.Column="1"
+                                        x:Name="MasculinBorder"
+                                        BackgroundColor="White"
+                                        Stroke="#DDDDDD"
+                                        StrokeThickness="1"
+                                        Padding="15"
+                                        HeightRequest="45">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="22.5"/>
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnMasculinClicked"/>
+                                    </Border.GestureRecognizers>
+                                    <Label x:Name="MasculinLabel"
+                                           Text="Masculin"
+                                           FontSize="14"
+                                           TextColor="#666666"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+                            </Grid>
+                        </VerticalStackLayout>
+
+                        <!-- Groupe sanguin -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Groupe sanguin"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#000000"/>
+                            <Border BackgroundColor="#E8F8F5"
+                                    Stroke="#00CC88"
+                                    StrokeThickness="2"
+                                    Padding="15">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10"/>
+                                </Border.StrokeShape>
+                                <Picker x:Name="GroupeSanguinPicker"
+                                        Title="Sélectionner"
+                                        TextColor="#000000"
+                                        BackgroundColor="Transparent">
+                                    <Picker.Items>
+                                        <x:String>A+</x:String>
+                                        <x:String>A-</x:String>
+                                        <x:String>B+</x:String>
+                                        <x:String>B-</x:String>
+                                        <x:String>AB+</x:String>
+                                        <x:String>AB-</x:String>
+                                        <x:String>O+</x:String>
+                                        <x:String>O-</x:String>
+                                    </Picker.Items>
+                                </Picker>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- Nom -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Nom"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#000000"/>
+                            <Border BackgroundColor="#E8F8F5"
+                                    Stroke="#00CC88"
+                                    StrokeThickness="2"
+                                    Padding="15">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10"/>
+                                </Border.StrokeShape>
+                                <Entry x:Name="EditNomEntry"
+                                       BackgroundColor="Transparent"
+                                       TextColor="#000000"/>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- Prénom -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Prénom"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#000000"/>
+                            <Border BackgroundColor="#E8F8F5"
+                                    Stroke="#00CC88"
+                                    StrokeThickness="2"
+                                    Padding="15">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10"/>
+                                </Border.StrokeShape>
+                                <Entry x:Name="EditPrenomEntry"
+                                       BackgroundColor="Transparent"
+                                       TextColor="#000000"/>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- Email -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Email"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#000000"/>
+                            <Border BackgroundColor="#E8F8F5"
+                                    Stroke="#00CC88"
+                                    StrokeThickness="2"
+                                    Padding="15">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10"/>
+                                </Border.StrokeShape>
+                                <Entry x:Name="EditEmailEntry"
+                                       Keyboard="Email"
+                                       BackgroundColor="Transparent"
+                                       TextColor="#000000"/>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- Types d'allergies -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Types d'allergies"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#000000"/>
+                            <Border BackgroundColor="#E8F8F5"
+                                    Stroke="#00CC88"
+                                    StrokeThickness="2"
+                                    Padding="15">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10"/>
+                                </Border.StrokeShape>
+                                <Entry x:Name="EditAllergiesEntry"
+                                       Placeholder="Lait"
+                                       PlaceholderColor="#CCCCCC"
+                                       BackgroundColor="Transparent"
+                                       TextColor="#000000"/>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- Indicateur de chargement -->
+                        <ActivityIndicator x:Name="ModifyLoadingIndicator"
+                                         IsRunning="False"
+                                         Color="#0066FF"
+                                         Margin="0,10"/>
+
+                        <!-- Bouton Modifier -->
+                        <Button Text="Modifier"
+                                BackgroundColor="#0066FF"
+                                TextColor="White"
+                                FontSize="18"
+                                FontAttributes="Bold"
+                                CornerRadius="25"
+                                HeightRequest="50"
+                                Margin="0,10,0,0"
+                                Clicked="OnSaveModificationClicked"/>
+
+                    </VerticalStackLayout>
+                </ScrollView>
+            </Border>
+        </Grid>
+
+    </Grid>
+</ContentPage>

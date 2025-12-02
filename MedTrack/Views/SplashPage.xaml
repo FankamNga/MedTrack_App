@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MedTrack.Views.SplashPage"
+             Title="SplashPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#0066FF">
+
+    <Grid>
+        <!-- Background avec effet vague -->
+        <BoxView Color="#0052CC" 
+                 Opacity="0.3"
+                 HeightRequest="400"
+                 VerticalOptions="Start"/>
+        
+        <BoxView Color="#0080FF" 
+                 Opacity="0.2"
+                 HeightRequest="500"
+                 VerticalOptions="Start"
+                 Margin="0,50,0,0"/>
+
+        <!-- Contenu centré -->
+        <VerticalStackLayout VerticalOptions="Center" 
+                            HorizontalOptions="Center"
+                            Spacing="30">
+            
+            <!-- Logo médical -->
+            <Border BackgroundColor="White"
+                    StrokeThickness="0"
+                    Padding="30"
+                    WidthRequest="120"
+                    HeightRequest="120"
+                    HorizontalOptions="Center">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="60"/>
+                </Border.StrokeShape>
+                
+                <Label Text="⚕"
+                       FontSize="60"
+                       TextColor="#0066FF"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+            </Border>
+
+            <!-- Nom de l'app -->
+            <Label Text="MEDITRACK"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"/>
+
+            <Label Text="Votre santé, notre bien-être"
+                   FontSize="14"
+                   TextColor="White"
+                   Opacity="0.9"
+                   HorizontalOptions="Center"/>
+
+        </VerticalStackLayout>
+
+        <!-- Bouton suivant en bas -->
+        <Border BackgroundColor="#00FF88"
+                StrokeThickness="0"
+                Padding="0"
+                WidthRequest="70"
+                HeightRequest="70"
+                VerticalOptions="End"
+                HorizontalOptions="Center"
+                Margin="0,0,0,50">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="35"/>
+            </Border.StrokeShape>
+            
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnNextClicked"/>
+            </Border.GestureRecognizers>
+
+            <Label Text="✓"
+                   FontSize="40"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+        </Border>
+
+    </Grid>
+</ContentPage>

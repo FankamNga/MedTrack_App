@@ -77,3 +77,103 @@ build_metadata.AdditionalFiles.Inflator = Runtime
 build_metadata.AdditionalFiles.NoWarn = 
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/dell/source/repos/MedTrack/MedTrack/Views/AccueilPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MedTrack.Views.AccueilPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\AccueilPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\AccueilPage.xaml
+build_metadata.AdditionalFiles.Inflator = Runtime
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/dell/source/repos/MedTrack/MedTrack/Views/ConnexionPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MedTrack.Views.ConnexionPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\ConnexionPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\ConnexionPage.xaml
+build_metadata.AdditionalFiles.Inflator = Runtime
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/dell/source/repos/MedTrack/MedTrack/Views/DetailMedicamentPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MedTrack.Views.DetailMedicamentPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\DetailMedicamentPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\DetailMedicamentPage.xaml
+build_metadata.AdditionalFiles.Inflator = Runtime
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/dell/source/repos/MedTrack/MedTrack/Views/DetailRendezVousPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MedTrack.Views.DetailRendezVousPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\DetailRendezVousPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\DetailRendezVousPage.xaml
+build_metadata.AdditionalFiles.Inflator = Runtime
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/dell/source/repos/MedTrack/MedTrack/Views/DocumentsPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MedTrack.Views.DocumentsPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\DocumentsPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\DocumentsPage.xaml
+build_metadata.AdditionalFiles.Inflator = Runtime
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/dell/source/repos/MedTrack/MedTrack/Views/InscriptionPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MedTrack.Views.InscriptionPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\InscriptionPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\InscriptionPage.xaml
+build_metadata.AdditionalFiles.Inflator = Runtime
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/dell/source/repos/MedTrack/MedTrack/Views/MedicamentsPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MedTrack.Views.MedicamentsPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\MedicamentsPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\MedicamentsPage.xaml
+build_metadata.AdditionalFiles.Inflator = Runtime
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/dell/source/repos/MedTrack/MedTrack/Views/ProfilPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MedTrack.Views.ProfilPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\ProfilPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\ProfilPage.xaml
+build_metadata.AdditionalFiles.Inflator = Runtime
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/dell/source/repos/MedTrack/MedTrack/Views/RendezVousPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MedTrack.Views.RendezVousPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\RendezVousPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\RendezVousPage.xaml
+build_metadata.AdditionalFiles.Inflator = Runtime
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/dell/source/repos/MedTrack/MedTrack/Views/SplashPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MedTrack.Views.SplashPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\SplashPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\SplashPage.xaml
+build_metadata.AdditionalFiles.Inflator = Runtime
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 

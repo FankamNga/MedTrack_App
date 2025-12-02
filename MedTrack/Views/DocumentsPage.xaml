@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MedTrack.Views.DocumentsPage"
+             Title="DocumentsPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#CCFF66">
+    <Grid>
+        <!-- Page principale -->
+        <Grid RowDefinitions="Auto,*">
+
+            <!-- Header vert clair -->
+            <VerticalStackLayout Grid.Row="0" 
+                                Padding="20,40,20,20"
+                                Spacing="15">
+
+                <!-- Titre avec bouton retour -->
+                <Grid ColumnDefinitions="Auto,*,Auto">
+                    <Border BackgroundColor="Transparent"
+                            StrokeThickness="0"
+                            Padding="5">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBackClicked"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="←"
+                               FontSize="28"
+                               TextColor="White"
+                               FontAttributes="Bold"/>
+                    </Border>
+
+                    <Label Grid.Column="1"
+                           Text="Documents"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           VerticalOptions="Center"
+                           Margin="10,0,0,0"/>
+
+                    <Border Grid.Column="2"
+                            BackgroundColor="White"
+                            StrokeThickness="0"
+                            Padding="8"
+                            WidthRequest="40"
+                            HeightRequest="40">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnFilterClicked"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="⚙"
+                               FontSize="20"
+                               TextColor="#CCFF66"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </Border>
+                </Grid>
+
+                <!-- Barre de recherche -->
+                <Border BackgroundColor="White"
+                        StrokeThickness="0"
+                        Padding="15,0"
+                        HeightRequest="50">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="25"/>
+                    </Border.StrokeShape>
+
+                    <Grid ColumnDefinitions="40,*">
+                        <Label Text="🔍"
+                               FontSize="20"
+                               TextColor="#999"
+                               VerticalOptions="Center"/>
+                        <Entry x:Name="SearchEntry"
+                               Grid.Column="1"
+                               Placeholder="rechercher ..."
+                               PlaceholderColor="#CCCCCC"
+                               BackgroundColor="Transparent"
+                               TextColor="#333333"
+                               TextChanged="OnSearchTextChanged"/>
+                    </Grid>
+                </Border>
+
+            </VerticalStackLayout>
+
+            <!-- Contenu blanc avec liste -->
+            <Border Grid.Row="1"
+                    BackgroundColor="White"
+                    Padding="20,20,20,80">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="30,30,0,0"/>
+                </Border.StrokeShape>
+
+                <Grid>
+                    <!-- Liste des documents -->
+                    <CollectionView x:Name="DocumentsCollection"
+                                   SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="0,0,0,15"
+                                      ColumnDefinitions="50,*,40">
+
+                                    <!-- Icône document -->
+                                    <Border BackgroundColor="#E8F8BB"
+                                            StrokeThickness="0"
+                                            WidthRequest="40"
+                                            HeightRequest="40"
+                                            VerticalOptions="Center">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="20"/>
+                                        </Border.StrokeShape>
+                                        <Label Text="📄"
+                                               FontSize="20"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                    </Border>
+
+                                    <!-- Nom et date -->
+                                    <VerticalStackLayout Grid.Column="1" 
+                                                       VerticalOptions="Center"
+                                                       Spacing="3"
+                                                       Margin="10,0">
+                                        <Label Text="{Binding Nom}"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="#000000"/>
+                                        <Label Text="{Binding CreatedAt, StringFormat='{0:dd.MM.yyyy - HH:mm}'}"
+                                               FontSize="12"
+                                               TextColor="#666666"/>
+                                    </VerticalStackLayout>
+
+                                    <!-- Bouton édition -->
+                                    <Border Grid.Column="2"
+                                            BackgroundColor="Transparent"
+                                            StrokeThickness="0"
+                                            WidthRequest="40"
+                                            HeightRequest="40"
+                                            VerticalOptions="Center">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnEditDocumentClicked"
+                                                                CommandParameter="{Binding .}"/>
+                                        </Border.GestureRecognizers>
+                                        <Label Text="✏️"
+                                               FontSize="20"
+                                               TextColor="#CCFF66"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <!-- Message si vide -->
+                    <VerticalStackLayout x:Name="EmptyStateLayout"
+                                       IsVisible="False"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center"
+                                       Spacing="15">
+                        <Label Text="📄"
+                               FontSize="60"
+                               HorizontalOptions="Center"
+                               Opacity="0.3"/>
+                        <Label Text="Aucun document"
+                               FontSize="18"
+                               TextColor="#999999"
+                               HorizontalOptions="Center"/>
+                        <Label Text="Appuyez sur + pour en ajouter"
+                               FontSize="14"
+                               TextColor="#CCCCCC"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+
+                    <!-- Indicateur de chargement -->
+                    <ActivityIndicator x:Name="LoadingIndicator"
+                                     IsRunning="False"
+                                     Color="#CCFF66"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="Center"/>
+                </Grid>
+            </Border>
+
+            <!-- Bouton flottant d'ajout -->
+            <Border Grid.Row="1"
+                    BackgroundColor="#CCFF66"
+                    StrokeThickness="0"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    VerticalOptions="End"
+                    HorizontalOptions="End"
+                    Margin="0,0,30,30">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="30"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                            Opacity="0.3"
+                            Radius="10"
+                            Offset="0,5"/>
+                </Border.Shadow>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnAddClicked"/>
+                </Border.GestureRecognizers>
+
+                <Label Text="📄+"
+                       FontSize="28"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+            </Border>
+
+        </Grid>
+
+        <!-- MODAL D'AJOUT (overlay) -->
+        <Grid x:Name="AddModal"
+              IsVisible="False"
+              BackgroundColor="#80000000">
+
+            <!-- Overlay cliquable -->
+            <BoxView Color="Transparent">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnModalBackgroundClicked"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+
+            <!-- Card du modal -->
+            <Border BackgroundColor="White"
+                    StrokeThickness="0"
+                    VerticalOptions="Center"
+                    Margin="20,0"
+                    Padding="25,30"
+                    InputTransparent="False">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20"/>
+                </Border.StrokeShape>
+
+                <ScrollView>
+                    <VerticalStackLayout Spacing="20">
+
+                        <!-- En-tête -->
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Ajout"
+                                   FontSize="24"
+                                   FontAttributes="Bold"
+                                   TextColor="#000000"
+                                   VerticalOptions="Center"/>
+
+                            <Label Grid.Column="1"
+                                   Text="✕"
+                                   FontSize="24"
+                                   TextColor="#FF0000"
+                                   VerticalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnCloseAddModalClicked"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+
+                        <Label Text="veuillez valider les informations&#x0a;suivantes:"
+                               FontSize="14"
+                               TextColor="#666666"
+                               Margin="0,0,0,10"/>
+
+                        <!-- Zone de téléchargement -->
+                        <Border BackgroundColor="#F5F5F5"
+                                StrokeThickness="2"
+                                Stroke="#DDDDDD"
+                                StrokeShape="RoundRectangle 10"
+                                Padding="20"
+                                HeightRequest="100">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnPickFileClicked"/>
+                            </Border.GestureRecognizers>
+
+                            <VerticalStackLayout HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               Spacing="10">
+                                <Label Text="⬆️"
+                                       FontSize="30"
+                                       HorizontalOptions="Center"/>
+                                <Label x:Name="AddFileNameLabel"
+                                       Text="télécharger un fichier"
+                                       FontSize="14"
+                                       TextColor="#666666"
+                                       HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- Nom du fichier -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Nom du fichier"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#000000"/>
+                            <Border BackgroundColor="#F5F5F5"
+                                    StrokeThickness="0"
+                                    Padding="15">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10"/>
+                                </Border.StrokeShape>
+                                <Entry x:Name="AddNomEntry"
+                                       Placeholder="nom du fichier..."
+                                       PlaceholderColor="#CCCCCC"
+                                       BackgroundColor="Transparent"
+                                       TextColor="#000000"/>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- Fréquence (Type) -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Fréquence"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#000000"/>
+
+                            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+
+                                <Border Grid.Column="0"
+                                        x:Name="AddOrdonnanceBorder"
+                                        BackgroundColor="White"
+                                        Stroke="#DDDDDD"
+                                        StrokeThickness="1"
+                                        Padding="10"
+                                        HeightRequest="40">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="20"/>
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnAddOrdonnanceClicked"/>
+                                    </Border.GestureRecognizers>
+                                    <Label x:Name="AddOrdonnanceLabel"
+                                           Text="Ordonnance"
+                                           FontSize="12"
+                                           TextColor="#666666"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+
+                                <Border Grid.Column="1"
+                                        x:Name="AddAnalyseBorder"
+                                        BackgroundColor="White"
+                                        Stroke="#DDDDDD"
+                                        StrokeThickness="1"
+                                        Padding="10"
+                                        HeightRequest="40">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="20"/>
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnAddAnalyseClicked"/>
+                                    </Border.GestureRecognizers>
+                                    <Label x:Name="AddAnalyseLabel"
+                                           Text="Analyse"
+                                           FontSize="12"
+                                           TextColor="#666666"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+
+                                <Border Grid.Column="2"
+                                        x:Name="AddReproBorder"
+                                        BackgroundColor="White"
+                                        Stroke="#DDDDDD"
+                                        StrokeThickness="1"
+                                        Padding="10"
+                                        HeightRequest="40">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="20"/>
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnAddReproClicked"/>
+                                    </Border.GestureRecognizers>
+                                    <Label x:Name="AddReproLabel"
+                                           Text="Repro"
+                                           FontSize="12"
+                                           TextColor="#666666"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+                            </Grid>
+                        </VerticalStackLayout>
+
+                        <!-- Indicateur de chargement -->
+                        <ActivityIndicator x:Name="AddLoadingIndicator"
+                                         IsRunning="False"
+                                         Color="#CCFF66"
+                                         Margin="0,10"/>
+
+                        <!-- Bouton Ajouter -->
+                        <Button Text="Ajouter"
+                                BackgroundColor="#CCFF66"
+                                TextColor="White"
+                                FontSize="18"
+                                FontAttributes="Bold"
+                                CornerRadius="25"
+                                HeightRequest="50"
+                                Margin="0,10,0,0"
+                                Clicked="OnAjouterClicked"/>
+
+                    </VerticalStackLayout>
+                </ScrollView>
+            </Border>
+        </Grid>
+
+        <!-- MODAL DE MODIFICATION (overlay) -->
+        <Grid x:Name="EditModal"
+              IsVisible="False"
+              BackgroundColor="#80000000">
+
+            <!-- Overlay cliquable -->
+            <BoxView Color="Transparent">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnModalBackgroundClicked"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+
+            <!-- Card du modal -->
+            <Border BackgroundColor="White"
+                    StrokeThickness="0"
+                    VerticalOptions="Center"
+                    Margin="20,0"
+                    Padding="25,30"
+                    InputTransparent="False">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20"/>
+                </Border.StrokeShape>
+
+                <ScrollView>
+                    <VerticalStackLayout Spacing="20">
+
+                        <!-- En-tête -->
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Modification"
+                                   FontSize="24"
+                                   FontAttributes="Bold"
+                                   TextColor="#000000"
+                                   VerticalOptions="Center"/>
+
+                            <Label Grid.Column="1"
+                                   Text="✕"
+                                   FontSize="24"
+                                   TextColor="#FF0000"
+                                   VerticalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnCloseEditModalClicked"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+
+                        <Label Text="veuillez valider les informations&#x0a;suivantes:"
+                               FontSize="14"
+                               TextColor="#666666"
+                               Margin="0,0,0,10"/>
+
+                        <!-- Zone de téléchargement -->
+                        <Border BackgroundColor="#F5F5F5"
+                                StrokeThickness="2"
+                                Stroke="#DDDDDD"
+                                StrokeShape="RoundRectangle 10"
+                                Padding="20"
+                                HeightRequest="100">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnPickEditFileClicked"/>
+                            </Border.GestureRecognizers>
+
+                            <VerticalStackLayout HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               Spacing="10">
+                                <Label Text="⬆️"
+                                       FontSize="30"
+                                       HorizontalOptions="Center"/>
+                                <Label x:Name="EditFileNameLabel"
+                                       Text="télécharger un fichier"
+                                       FontSize="14"
+                                       TextColor="#666666"
+                                       HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- Nom du fichier -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Nom du fichier"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#000000"/>
+                            <Border BackgroundColor="#F5F5F5"
+                                    StrokeThickness="0"
+                                    Padding="15">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10"/>
+                                </Border.StrokeShape>
+                                <Entry x:Name="EditNomEntry"
+                                       BackgroundColor="Transparent"
+                                       TextColor="#000000"/>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- Fréquence (Type) -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Fréquence"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#000000"/>
+
+                            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+
+                                <Border Grid.Column="0"
+                                        x:Name="EditOrdonnanceBorder"
+                                        BackgroundColor="White"
+                                        Stroke="#DDDDDD"
+                                        StrokeThickness="1"
+                                        Padding="10"
+                                        HeightRequest="40">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="20"/>
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnEditOrdonnanceClicked"/>
+                                    </Border.GestureRecognizers>
+                                    <Label x:Name="EditOrdonnanceLabel"
+                                           Text="Ordonnance"
+                                           FontSize="12"
+                                           TextColor="#666666"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+
+                                <Border Grid.Column="1"
+                                        x:Name="EditAnalyseBorder"
+                                        BackgroundColor="White"
+                                        Stroke="#DDDDDD"
+                                        StrokeThickness="1"
+                                        Padding="10"
+                                        HeightRequest="40">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="20"/>
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnEditAnalyseClicked"/>
+                                    </Border.GestureRecognizers>
+                                    <Label x:Name="EditAnalyseLabel"
+                                           Text="Analyse"
+                                           FontSize="12"
+                                           TextColor="#666666"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+
+                                <Border Grid.Column="2"
+                                        x:Name="EditReproBorder"
+                                        BackgroundColor="White"
+                                        Stroke="#DDDDDD"
+                                        StrokeThickness="1"
+                                        Padding="10"
+                                        HeightRequest="40">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="20"/>
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnEditReproClicked"/>
+                                    </Border.GestureRecognizers>
+                                    <Label x:Name="EditReproLabel"
+                                           Text="Repro"
+                                           FontSize="12"
+                                           TextColor="#666666"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+                            </Grid>
+                        </VerticalStackLayout>
+
+                        <!-- Indicateur de chargement -->
+                        <ActivityIndicator x:Name="EditLoadingIndicator"
+                                         IsRunning="False"
+                                         Color="#CCFF66"
+                                         Margin="0,10"/>
+
+                        <!-- Boutons -->
+                        <VerticalStackLayout Spacing="15">
+                            <!-- Bouton Modifier -->
+                            <Button Text="Modifier"
+                                    BackgroundColor="#CCFF66"
+                                    TextColor="White"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    CornerRadius="25"
+                                    HeightRequest="50"
+                                    Clicked="OnModifierClicked"/>
+
+                            <!-- Bouton Supprimer -->
+                            <Button Text="Supprimer"
+                                    BackgroundColor="#FF3333"
+                                    TextColor="White"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    CornerRadius="25"
+                                    HeightRequest="50"
+                                    Clicked="OnSupprimerClicked"/>
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+                </ScrollView>
+            </Border>
+        </Grid>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MedTrack.Views.InscriptionPage"
+             Title="InscriptionPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#0066FF">
+
+    <Grid>
+        <!-- Background bleu avec effet -->
+        <BoxView Color="#0052CC" 
+                 Opacity="0.3"
+                 HeightRequest="300"
+                 VerticalOptions="Start"/>
+
+        <ScrollView>
+            <VerticalStackLayout Spacing="0">
+                
+                <!-- Bouton retour -->
+                <ImageButton Source="arrow_back.png"
+                            WidthRequest="40"
+                            HeightRequest="40"
+                            Margin="20,40,0,0"
+                            HorizontalOptions="Start"
+                            BackgroundColor="Transparent"
+                            Clicked="OnBackClicked"/>
+
+                <!-- Carte blanche avec formulaire -->
+                <Border BackgroundColor="White"
+                        Margin="0,100,0,0"
+                        Padding="30,40">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="30,30,0,0"/>
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="20">
+                        
+                        <!-- Titre -->
+                        <Label Text="INSCRIPTION"
+                               FontSize="28"
+                               FontAttributes="Bold"
+                               TextColor="#000000"/>
+
+                        <Label Text="Créez un compte pour continuer"
+                               FontSize="14"
+                               TextColor="#666666"
+                               Margin="0,0,0,10"/>
+
+                        <!-- Champ Email -->
+                        <Border BackgroundColor="#F5F5F5"
+                                StrokeThickness="0"
+                                Padding="15,0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="12"/>
+                            </Border.StrokeShape>
+                            
+                            <Grid ColumnDefinitions="40,*">
+                                <Label Text="✉" 
+                                       FontSize="20"
+                                       TextColor="#666"
+                                       VerticalOptions="Center"/>
+                                <Entry x:Name="EmailEntry"
+                                       Grid.Column="1"
+                                       Placeholder="account@gmail.com"
+                                       Keyboard="Email"
+                                       BackgroundColor="Transparent"
+                                       TextColor="#000000"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Champ Nom -->
+                        <Border BackgroundColor="#F5F5F5"
+                                StrokeThickness="0"
+                                Padding="15,0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="12"/>
+                            </Border.StrokeShape>
+                            
+                            <Grid ColumnDefinitions="40,*,40">
+                                <Label Text="👤" 
+                                       FontSize="20"
+                                       TextColor="#666"
+                                       VerticalOptions="Center"/>
+                                <Entry x:Name="NomEntry"
+                                       Grid.Column="1"
+                                       Placeholder="Franck"
+                                       BackgroundColor="Transparent"
+                                       TextColor="#000000"/>
+                                <Label Grid.Column="2"
+                                       Text="✓"
+                                       FontSize="20"
+                                       TextColor="#FF8800"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center"
+                                       IsVisible="False"
+                                       x:Name="NomValidIcon"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Champ Mot de passe -->
+                        <Border BackgroundColor="#F5F5F5"
+                                StrokeThickness="0"
+                                Padding="15,0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="12"/>
+                            </Border.StrokeShape>
+                            
+                            <Grid ColumnDefinitions="40,*,40">
+                                <Label Text="🔒" 
+                                       FontSize="20"
+                                       TextColor="#666"
+                                       VerticalOptions="Center"/>
+                                <Entry x:Name="PasswordEntry"
+                                       Grid.Column="1"
+                                       Placeholder="••••••••"
+                                       IsPassword="True"
+                                       BackgroundColor="Transparent"
+                                       TextColor="#000000"/>
+                                <ImageButton Grid.Column="2"
+                                           x:Name="PasswordToggle"
+                                           Source="eye.png"
+                                           WidthRequest="24"
+                                           HeightRequest="24"
+                                           BackgroundColor="Transparent"
+                                           Clicked="OnPasswordToggleClicked"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Champ Confirmation mot de passe -->
+                        <Border BackgroundColor="#F5F5F5"
+                                StrokeThickness="0"
+                                Padding="15,0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="12"/>
+                            </Border.StrokeShape>
+                            
+                            <Grid ColumnDefinitions="40,*,40">
+                                <Label Text="🔒" 
+                                       FontSize="20"
+                                       TextColor="#666"
+                                       VerticalOptions="Center"/>
+                                <Entry x:Name="ConfirmPasswordEntry"
+                                       Grid.Column="1"
+                                       Placeholder="••••••••"
+                                       IsPassword="True"
+                                       BackgroundColor="Transparent"
+                                       TextColor="#000000"/>
+                                <ImageButton Grid.Column="2"
+                                           Source="eye.png"
+                                           WidthRequest="24"
+                                           HeightRequest="24"
+                                           BackgroundColor="Transparent"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Se souvenir de moi -->
+                        <Grid ColumnDefinitions="*,Auto" Margin="0,10,0,0">
+                            <Label Text="Se souvenir de moi"
+                                   FontSize="14"
+                                   TextColor="#333333"
+                                   VerticalOptions="Center"/>
+                            <Switch x:Name="RememberSwitch"
+                                    Grid.Column="1"
+                                    OnColor="#FF8800"
+                                    ThumbColor="White"/>
+                        </Grid>
+
+                        <!-- ActivityIndicator -->
+                        <ActivityIndicator x:Name="LoadingIndicator"
+                                         IsRunning="False"
+                                         Color="#00FF88"
+                                         Margin="0,10"/>
+
+                        <!-- Bouton S'inscrire -->
+                        <Button Text="S'inscrire"
+                                BackgroundColor="#00FF88"
+                                TextColor="White"
+                                FontSize="18"
+                                FontAttributes="Bold"
+                                CornerRadius="25"
+                                HeightRequest="50"
+                                Margin="0,10,0,0"
+                                Clicked="OnSignupClicked"/>
+
+                        <!-- Lien connexion -->
+                        <HorizontalStackLayout HorizontalOptions="Center"
+                                             Spacing="5"
+                                             Margin="0,20,0,0">
+                            <Label Text="Avez-vous déjà un compte ?"
+                                   FontSize="14"
+                                   TextColor="#666666"/>
+                            <Label Text="Se connecter"
+                                   FontSize="14"
+                                   TextColor="#0066FF"
+                                   FontAttributes="Bold">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnLoginClicked"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
