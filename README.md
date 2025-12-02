@@ -252,6 +252,9 @@ MedicmentPage.jpeg
 Onboard.jpeg
 
 📸 Prévisualisation :
+
+
+
 <img src="resultatObtenus/Onboard.jpeg" width="300"/> 
 <img src="resultatObtenus/Accueil.jpeg" width="300"/> 
 <img src="resultatObtenus/Accueil1.jpeg" width="300"/> 
