@@ -1,24 +1,40 @@
-MedTrack — Frontend (.NET MAUI)
+📘 MedTrack — Frontend (.NET MAUI)
 
-Statut : Prototype fonctionnel (frontend .NET MAUI)
+Statut : Prototype fonctionnel
+Technologie : .NET MAUI (MVVM)
 Nom de l’application : MedTrack
 But : Application mobile pour centraliser le suivi médical (médicaments, rendez-vous, documents, profil santé).
 
-Description courte
+📄 Description courte
 
-MedTrack est le frontend mobile développé en .NET MAUI (architecture MVVM) qui consomme une API REST (backend Node.js + Express / Postgres). L’application fournit les pages d’authentification, gestion des médicaments, rendez-vous, documents et un profil santé. Conçue pour être simple, accessible et légère.
+MedTrack est une application mobile développée en .NET MAUI utilisant une architecture MVVM.
+Elle consomme une API REST (backend Node.js + Express / PostgreSQL).
 
-Table des matières
+L’application inclut :
 
-Installation (pré-requis & exécution)
+Authentification
+
+Gestion des médicaments
+
+Rendez-vous médicaux
+
+Gestion des documents (images / PDF)
+
+Profil santé complet
+
+Dashboard simple et ergonomique
+
+📚 Table des matières
+
+Installation
 
 Fonctionnalités
 
-Architecture & structure du projet
+Architecture & structure
 
-API attendue (endpoints)
+API attendue
 
-Configuration (variables)
+Configuration & stockage
 
 Tests & validation
 
@@ -30,253 +46,219 @@ Contribution
 
 Licence
 
+Résultats obtenus (Screenshots)
 
-1. Installation
-Prérequis
+1️⃣ Installation
+🔧 Prérequis
 
-.NET SDK (8.0+ recommandé) installé.
+.NET SDK (8.0+ recommandé)
 
-Workloads MAUI installés : dotnet workload install maui
+Workloads MAUI :
 
-(Pour développement Android) Android SDK + émulateur / téléphone USB.
-
-(Pour iOS) macOS + Xcode (si nécessaire).
-
-Node.js / backend accessible (ou exécuter localement le backend fourni séparément).
-
-Cloner le dépôt
-git clone https://github.com/FankamNga/MedTrack_App
-cd medtrack-frontend-maui
-
-Configuration (locale)
-
-Copier le fichier de configuration modèle :
-
-cp appsettings.example.json appsettings.local.json
+dotnet workload install maui
 
 
-Modifier appsettings.local.json pour y mettre l’URL de l’API :
+Android SDK + émulateur (ou appareil USB)
 
-{
-  "ApiBaseUrl": "https://localhost:3000/api"
-}
+Node.js / Backend disponible
 
+(iOS) macOS + Xcode si nécessaire
 
-Remplacez par l’URL de votre backend (https si possible).
-
-Restaurer et lancer
+📥 Cloner le dépôt
+git clone https://github.com/FankamNga/MedTrack_App.git
+cd MedTrack
 dotnet restore
 dotnet build
+dotnet maui run
 
-Lancer sur Android (émulateur / appareil)
-dotnet build -f net8.0-android
-dotnet run -f net8.0-android
+📱 Lancement
+▶️ Lancer sur Android
+git clone <url-du-projet>
+cd MedTrack
+dotnet restore
+dotnet build
+dotnet maui run
 
-Lancer sur Windows (si ciblé)
-dotnet build -f net8.0-windows10.0.19041.0
-dotnet run -f net8.0-windows10.0.19041.0
+2️⃣ Fonctionnalités (v1)
 
-2. Fonctionnalités (v1 - version de base)
+🔐 Authentification : inscription / connexion (JWT)
 
-Authentification : inscription & connexion (JWT).
+💊 Médicaments : CRUD (nom, dosage, fréquence)
 
-Médicaments : CRUD (nom, dosage, fréquence).
+📅 Rendez-vous : CRUD (date, lieu, type)
 
-Rendez-vous : CRUD (date, heure, lieu, type).
+📄 Documents médicaux : upload + visualisation
 
-Documents médicaux : upload (image/pdf), liste, visualisation plein écran.
+👤 Profil santé : allergies, groupe sanguin, informations personnelles
 
-Profil santé : nom, âge, sexe, groupe sanguin, allergies/maladies.
+🏠 Dashboard : accès rapide aux modules
 
-Accueil (Dashboard) : vue synthétique + gros boutons d’accès.
+🔁 Navigation simple et fluide
 
-Navigation simple : Vue Liste → Ajouter / Modifier → Retour.
+3️⃣ Architecture & structure du projet
+🏛️ Pattern
 
-3. Architecture & structure du projet
-Pattern
+MVVM
 
-MVVM : Models, ViewModels, Views.
+Services pour API + stockage local
 
-Service layer pour appels API et stockage local (preferences / secure storage).
+Injection de dépendances
 
-Utilisation de CommunityToolkit.Mvvm recommandée.
+CommunityToolkit.Mvvm recommandé
 
-Arborescence (exemple)
+📂 Arborescence
 /src
   /MedTrack.App
     /Views
-      LoginPage.xaml
-      RegisterPage.xaml
-      DashboardPage.xaml
-      MedicinesListPage.xaml
-      MedicineEditPage.xaml
-      AppointmentsListPage.xaml
-      AppointmentEditPage.xaml
-      DocumentsPage.xaml
-      ProfilePage.xaml
     /ViewModels
-      LoginViewModel.cs
-      RegisterViewModel.cs
-      DashboardViewModel.cs
-      MedicinesViewModel.cs
-      MedicineEditViewModel.cs
-      AppointmentsViewModel.cs
-      DocumentsViewModel.cs
-      ProfileViewModel.cs
     /Models
-      User.cs
-      Medicine.cs
-      Appointment.cs
-      Document.cs
-      HealthProfile.cs
     /Services
-      IApiService.cs
-      ApiService.cs
-      IStorageService.cs
-      SecureStorageService.cs
     /Resources
-      Styles.xaml
-      Strings.resx
     App.xaml
     MainPage.xaml
 
-Principes clés
+🔑 Principes clés
 
-ViewModels contiennent la logique, utilisent INotifyPropertyChanged.
+ViewModels = logique métier
 
-Services gèrent la communication réseau et la persistance locale légère.
+Services = API + persistance
 
-Toutes les requêtes réseau passent par ApiService qui gère l’injection du token JWT.
+API centralisée dans ApiService (gestion JWT)
 
-4. API attendue (exemples d’endpoints)
+4️⃣ API attendue (extraits)
+🔐 Authentification
 
-Le backend doit exposer une API REST JSON. Voici les endpoints attendus par le frontend :
+POST /api/auth/register
 
-Authentification
+POST /api/auth/login
 
-POST /api/auth/register — { email, password, name } => 201 + { token, user }
+💊 Médicaments
 
-POST /api/auth/login — { email, password } => { token, user }
+GET /api/medicines
 
-Médicaments
+POST /api/medicines
 
-GET /api/medicines — liste
+PUT /api/medicines/{id}
 
-GET /api/medicines/{id} — détails
-
-POST /api/medicines — créer { name, dosage, frequency }
-
-PUT /api/medicines/{id} — modifier
-
-DELETE /api/medicines/{id} — supprimer
-
-Rendez-vous
+📅 Rendez-vous
 
 GET /api/appointments
 
-POST /api/appointments — { datetime, location, type, note }
+POST /api/appointments
 
-PUT /api/appointments/{id}
+📄 Documents
 
-DELETE /api/appointments/{id}
+POST /api/documents (multipart)
 
-Documents
+GET /api/documents/{id}
 
-GET /api/documents
-
-POST /api/documents — multipart/form-data (file + metadata type)
-
-GET /api/documents/{id} — retourne URL ou contenu
-
-Profil
+👤 Profil
 
 GET /api/profile
 
-PUT /api/profile — modifier informations santé
+PUT /api/profile
 
-Sécurité
+🔒 Sécurité
 
-Les endpoints protégés exigent header Authorization: Bearer <token>.
+Header obligatoire :
 
-5. Configuration & stockage
-Fichier de config (exemple)
+Authorization: Bearer <token>
 
-appsettings.example.json
-
+5️⃣ Configuration & stockage
+📁 Fichier config
 {
-  "ApiBaseUrl": "https://localhost:3000/api",
+  "ApiBaseUrl": "https://med-track-back.vercel.app/",
   "TimeoutSeconds": 30
 }
 
-Stockage côté client
+🔐 Stockage
 
-Token JWT : stocker dans SecureStorage (MAUI Essentials / Microsoft.Maui.Storage).
+JWT → SecureStorage
 
-Données non sensibles (préférences) : Preferences.
+Préférences simples → Preferences
 
-Sécurité
+6️⃣ Tests & validation
+🧪 Tests unitaires
 
-Utiliser HTTPS pour toutes les requêtes en production.
+Projet MedTrack.Tests
 
-Ne pas stocker de mots de passe en clair.
+Mock de IApiService
 
-Protéger l’upload/download des documents (vérifier types et tailles côté serveur).
+🧭 Tests manuels
 
-6. Tests & validation
-Tests unitaires
+Vérification du CRUD complet
 
-Créer un projet de test MedTrack.Tests pour ViewModels.
+Authentification sécurisée
 
-Tester la logique d’ajout/modification/suppression dans ViewModels via moq des IApiService.
+Visualisation documents
 
-Tests fonctionnels manuels
+7️⃣ UI / Accessibilité / Écoconception
 
-Vérifier CRUD pour chaque ressource.
+🎯 UX simple, boutons larges
 
-Tester authentification / accès restreint.
+🌗 Contraste lisible
 
-Vérifier chargement et affichage des documents.
+📱 Responsive toutes tailles écrans
 
-Critères d’acceptation (extraits)
+⚡ Images optimisées
 
-Temps de chargement d’une page < 2s (dépend du backend).
+💙 Thème sobre (bleu / gris)
 
-Navigation fluide, boutons accessibles.
+8️⃣ Déploiement / Packaging
+📦 Android
 
-Mot de passe chiffré et accès uniquement après login.
+Build APK/AAB via .NET MAUI
 
-7. UI / Accessibilité / Écoconception
+🍏 iOS
 
-UX minimaliste : gros boutons, textes lisibles, contraste suffisant.
+Compilation via macOS + Xcode
 
-Éviter animations lourdes ; images optimisées.
+🔐 Configuration
 
-Thème coloré sobre (bleu/gris) pour usage médical.
+Variables backend versionnées séparément
 
-Polices accessibles; tailles par défaut 16+ pour textes principaux.
+Respect MVVM
 
-Support des tailles d’écran et orientation.
+Ajouter tests unitaires
 
-8. Déploiement / Packaging
+🔟 Licence
 
-Générer APK/AAB pour Android via les outils MAUI / dotnet.
+MIT License (ou autre à préciser)
 
-Pour iOS, suivre le processus de build macOS/Xcode + provisioning.
+1️⃣1️⃣ Résultats obtenus (captures d’écran)
 
-Mettre la configuration backend en variables d’environnement ou dans appsettings pour différencier dev/prod.
+Le dossier des résultats : resultatsObtenus
 
-9. Contribution
+Images utilisées :
 
-Fork → branch feature/your-feature → PR.
+ProfilePage.jpeg
 
-Respecter le pattern MVVM.
+Accueil.jpeg
 
-Ajouter tests unitaires pour toute nouvelle ViewModel.
+Accueil1.jpeg
 
-Documenter chaque nouveau service / endpoint utilisé.
+InscriptionPage.jpeg
 
-10. Licence
+ConnexionPage.jpeg
 
-Précisez la licence du projet (ex: MIT). Exemple :
+AjoutMedicament.jpeg
 
-MIT License
+documentPage.jpeg
+
+EditProfilePage.jpeg
+
+MedicmentPage.jpeg
+
+Onboard.jpeg
+
+📸 Prévisualisation :
+<img src="resultatObtenus/Onboard.jpeg" width="300"/> 
+<img src="resultatObtenus/Accueil.jpeg" width="300"/> 
+<img src="resultatObtenus/Accueil1.jpeg" width="300"/> 
+<img src="resultatObtenus/InscriptionPage.jpeg" width="300"/> 
+<img src="resultatsObtenus/ConnexionPage.jpeg" width="300"/> 
+<img src="resultatObtenus/AjoutMedicament.jpeg" width="300"/> 
+<img src="resultatObtenus/documentPage.jpeg" width="300"/> 
+<img src="resultatObtenus/EditProfilePage.jpeg" width="300"/> 
+<img src="resultatObtenus/MedicmentPage.jpeg" width="300"/> 
+<img src="resultatObtenus/ProfilePage.jpeg" width="300"/>
