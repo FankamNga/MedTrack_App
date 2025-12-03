@@ -82,6 +82,7 @@ dotnet maui run
 2️⃣ Fonctionnalités (v1)
 
 🔐 Authentification : inscription / connexion (JWT)
+compte de test: user@example.com , password123
 
 💊 Médicaments : CRUD (nom, dosage, fréquence)
 
